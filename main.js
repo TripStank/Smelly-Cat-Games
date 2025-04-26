@@ -56,8 +56,13 @@ function createPolyGrid() {
   const width = window.innerWidth;
   const height = window.innerHeight;
   // Choose desired number of columns and rows
-  const cols = Math.round(width / 110);
-  const rows = Math.round(height / 110);
+  let cols = Math.round(width / 110);
+  let rows = Math.round(height / 110);
+  // On mobile, add extra row and column
+  if (window.innerWidth <= 700) {
+    cols += 1;
+    rows += 1;
+  }
   const colSpacing = width / cols;
   const rowSpacing = height / rows;
   for (let y = 0; y < rows; y++) {
