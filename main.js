@@ -52,16 +52,20 @@ let polyGridPointers = [];
 function createPolyGrid() {
   bgGrid.innerHTML = '';
   polyGridPointers = [];
-  const rect = mainElem.getBoundingClientRect();
-  polyGridCols = Math.ceil(rect.width / polyGridSpacing);
-  polyGridRows = Math.ceil(rect.height / polyGridSpacing);
-  for (let y = 0; y < polyGridRows; y++) {
-    for (let x = 0; x < polyGridCols; x++) {
-      const px = Math.round((x + 0.5) * polyGridSpacing);
-      const py = Math.round((y + 0.5) * polyGridSpacing);
+  // Use viewport size for grid
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+  // Choose desired number of columns and rows
+  const cols = Math.round(width / 110);
+  const rows = Math.round(height / 110);
+  const colSpacing = width / cols;
+  const rowSpacing = height / rows;
+  for (let y = 0; y < rows; y++) {
+    for (let x = 0; x < cols; x++) {
+      const px = Math.round((x + 0.5) * colSpacing);
+      const py = Math.round((y + 0.5) * rowSpacing);
       const el = document.createElement('div');
       el.className = 'bg-pointer-poly';
-      // Use bg_head.svg as the image
       el.innerHTML = `<img src="/public/assets/bg_head.svg" class="bg-head-svg" draggable="false" alt="bg head">`;
       el.style.left = px + 'px';
       el.style.top = py + 'px';
