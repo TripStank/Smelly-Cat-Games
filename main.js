@@ -66,7 +66,7 @@ function createPolyGrid() {
       const py = Math.round((y + 0.5) * rowSpacing);
       const el = document.createElement('div');
       el.className = 'bg-pointer-poly';
-      el.innerHTML = `<img src="/public/assets/bg_head.svg" class="bg-head-svg" draggable="false" alt="bg head">`;
+      el.innerHTML = `<img src="/assets/bg_head.svg" class="bg-head-svg" draggable="false" alt="bg head">`;
       el.style.left = px + 'px';
       el.style.top = py + 'px';
       bgGrid.appendChild(el);

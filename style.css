@@ -261,3 +261,9 @@ footer {
     width: 10px; height: 10px;
   }
 }
+
+@font-face {
+  font-family: 'PixelatedElegance';
+  src: url('/assets/PixelatedElegance.ttf') format('truetype');
+  font-display: swap;
+}
