@@ -103,8 +103,54 @@ window.addEventListener('mousemove', e => {
   pointerMY = e.clientY;
 });
 
+// --- Detect Mobile ---
+function isMobile() {
+  return /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile|BlackBerry/i.test(navigator.userAgent);
+}
+
+// --- Touch Tracking for Background Grid ---
+let isTouching = false;
+let touchX = window.innerWidth / 2, touchY = window.innerHeight / 2;
+
+if (isMobile()) {
+  document.body.classList.add('mobile');
+  window.addEventListener('touchstart', e => {
+    isTouching = true;
+    if (e.touches && e.touches.length > 0) {
+      touchX = e.touches[0].clientX;
+      touchY = e.touches[0].clientY;
+    }
+  });
+  window.addEventListener('touchmove', e => {
+    if (e.touches && e.touches.length > 0) {
+      touchX = e.touches[0].clientX;
+      touchY = e.touches[0].clientY;
+    }
+  });
+  window.addEventListener('touchend', e => {
+    isTouching = false;
+  });
+}
+
+// --- Use touch position for background on mobile ---
+function getPointerXY() {
+  if (isMobile() && isTouching) return [touchX, touchY];
+  return [pointerMX, pointerMY];
+}
+
 function animatePolyBgPointers() {
-  updatePolyPointers(pointerMX, pointerMY);
+  const [mx, my] = getPointerXY();
+  updatePolyPointers(mx, my);
   requestAnimationFrame(animatePolyBgPointers);
 }
+
 animatePolyBgPointers();
+
+// --- Hide cursor overlays on mobile ---
+if (isMobile()) {
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.cursor-orb, .cursor-trail, .cursor-bubbles').forEach(el => {
+      el.style.display = 'none';
+    });
+  });
+}
